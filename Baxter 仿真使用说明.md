@@ -36,7 +36,7 @@ $ cp src/baxter/baxter.sh .
 
 应该是gazebo升级之后把自己的资源放的位置改了导致的错误。目前的解决方法是直接下载文件。
 
-下载https://bitbucket.org/osrf/gazebo_models/downloads的文件，解压到``~/.gazebo/models``中（需要新建文件夹，并且是将内容解压到该文件夹，而非还套着一个文件夹）
+下载https://bitbucket.org/osrf/gazebo_models/downloads 的文件，解压到``~/.gazebo/models``中（需要新建文件夹，并且是将内容解压到该文件夹，而非还套着一个文件夹）
 
 
 
