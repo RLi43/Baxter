@@ -73,7 +73,25 @@ $ roslaunch baxter_gazebo baxter_world.launch #打开gazebo世界
 ```
 rosrun baxter_tools enable_robot.py -e #使能机器人
 ```
+### 示例
+这个示例是运行一个定位红点，夹取、移动和放置的一个仿真。但是由于没有反馈（对，这也只是一个很简单的仿真），需要在初始状态才能夹起物体（并没有图像处理……），而且运行一会儿物体可能就丢掉了。
 
+打开一个终端
+```
+$ cd ros_ws
+$ ./baxter.sh sim #开启仿真环境
+$ roslaunch baxter_gazebo baxter_world.launch #打开gazebo世界
+```
+再打开一个看左手图像的终端
+```
+$ ./baxter.sh sim
+$ rosrun image_view image_view image:=/cameras/left_hand_camera/image
+```
+打开模拟器示例
+```
+$ ./baxter.sh sim
+$ rosrun baxter_sim_examples ik_pick_and_place_demo.py
+```
 
 
 ## 参考目录
