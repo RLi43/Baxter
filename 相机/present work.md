@@ -65,4 +65,4 @@ Baxter有三台彩色摄像机，2台在手中，'left_hand_camera'和'right_han
 
 ## 参考
 
-官方wiki[http://sdk.rethinkrobotics.com/wiki/Cameras]
+官方wiki  http://sdk.rethinkrobotics.com/wiki/Cameras
