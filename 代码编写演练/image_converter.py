@@ -65,6 +65,7 @@ class image_converter:
  
 		gray_img = cv2.cvtColor(open_img, cv2.COLOR_BGR2GRAY)
 		ret, self._bin_img = cv2.threshold(gray_img, 10, 255, cv2.THRESH_BINARY)
+		
 # 利用棋盘格上实际距离已知的多个点来计算单应性矩阵，
 # 即可得到当前图像平面到实际工作平面到单应性矩阵，
 # 在抓手到工作平面的垂直距离不变的情况下一直有效，若变化则需要重新计算。
