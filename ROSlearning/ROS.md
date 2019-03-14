@@ -70,6 +70,55 @@ publish & subscribe messages
 
 e.g.  `rostopic pub -r 1 /turtles/cmd_dev gem/Twist '[2.0,0.0,0.0]' '[0.0,0.0,2.0]'` -r for repeat at 1Hz; -1 for immediately
 
+#### 创建消息
+
+`WORKSPACE/src/YOUR_PACKAGE/msg/MSG_NAME.msg`
+
+```
+string first_name
+string last_name
+uint8 age
+uint32 score
+```
+
+在`package.xml`中必须包含
+
+```xml
+<build_depend>message_generation</build_depend>
+  <run_depend>message_runtime</run_depend>
+```
+
+在`CMakelist.txt`增加生成消息服务的依赖
+
+```xml
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs message_generation)
+```
+
+增加运行依赖
+
+```xml
+catkin_package(
+  ...
+  CATKIN_DEPENDS message_runtime ...
+  ...)
+```
+
+声明消息类型
+
+```xml
+add_message_files(
+   FILES
+   Message1.msg
+   Message2.msg
+ )
+```
+
+
+
+
+
+
+
 ### Service
 
 `rosservice:当前运行的服务`
