@@ -2,6 +2,16 @@
 
 每个命令的更多用法见 --h 获取帮助
 
+## ros文件系统
+
+$ROS_PACKAGE_PATH
+
+`rospack` `find [package]`
+
+`roscd [package]`/`rosls`
+
+`rosed [package] [file]`(使用`vim`,配置在～/.zshrc文件中，EDITOR='gedit')
+
 ## Sturcture
 
 ### Node
@@ -52,6 +62,24 @@
     </launch>
 ```
 
+#### Parameter sever
+
+ROS参数服务器在运行时可以存储和取回参数、使用静态数据作为配置成参数，通常定义在launch文件火独立的YAML文件中。
+
+`rosparam`
+
+set & get
+
+##### C++ API
+
+```C++
+ros::NodeHandle nodeHandle("~");
+std::string topic;
+if(!nodeHandle.getParam("XX/XX/parameter_name",topic)){
+    ROS_ERROR("Could not find topic parameter!");
+}
+```
+
 
 
 ### topic
@@ -62,7 +90,23 @@ publish & subscribe messages
 
 `rostopic type XXX`
 
-#### ros message
+#### Message
+
+消息(msg): msg文件就是一个描述ROS中所使用消息类型的简单文本。它们会被用来生成不同语言的源代码。 msg文件存放在package的msg目录下，srv文件则存放在srv目录下。 msg文件实际上就是每行声明一个数据类型和变量名。
+
+###### 可用数据类型
+
+```c++
+int8, int16, int32, int64 (plus uint*)
+float32, float64
+string
+time, duration
+other msg files
+variable-length array[] and fixed-length array[C]
+Header，它含有时间戳和坐标系信息。
+```
+
+
 
 `rosmsg` ros消息
 
@@ -70,19 +114,26 @@ publish & subscribe messages
 
 e.g.  `rostopic pub -r 1 /turtles/cmd_dev gem/Twist '[2.0,0.0,0.0]' '[0.0,0.0,2.0]'` -r for repeat at 1Hz; -1 for immediately
 
-### Service
+#### Service
+
+服务(srv): 一个srv文件描述一项服务。它包含两个部分：请求和响应。
+
+```c++
+int64 A //请求
+int64 B
+---//分割符
+int64 Sum //响应
+```
 
 `rosservice:当前运行的服务`
 
 `rossrv:所有服务`
 
-### Parameter
 
-`rosparam`
 
-set & get
+## Others
 
-## rqt
+### rqt
 
 logging framework
 
