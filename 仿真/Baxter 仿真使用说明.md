@@ -1,4 +1,6 @@
-# Baxter 仿真使用说明
+# Baxter 仿真Gazebo使用说明
+
+rviz可以直接在连接的环境中启动 `rosrun rviz rviz`
 
 ## 1.安装
 
