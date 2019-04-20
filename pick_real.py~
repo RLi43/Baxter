@@ -73,6 +73,8 @@ class PickAndPlace(object):
         self._init_state = self._rs.state().enabled
         print("Enabling robot... ")
         self._rs.enable()
+
+
     def move_to_start(self, start_angles=None):
         print("Moving the {0} arm to start pose...".format(self._limb_name))
         if not start_angles:
@@ -81,6 +83,8 @@ class PickAndPlace(object):
         self.gripper_open()
         rospy.sleep(1.0)
         print("Running. Ctrl-c to quit")
+
+
     def ik_request(self, pose):
         hdr = Header(stamp=rospy.Time.now(), frame_id='base')
         ikreq = SolvePositionIKRequest()
@@ -112,23 +116,33 @@ class PickAndPlace(object):
             rospy.logerr("INVALID POSE - No Valid Joint Solution Found.")
             return False
         return limb_joints
+
+
     def _guarded_move_to_joint_position(self, joint_angles):
         if joint_angles:
             self._limb.move_to_joint_positions(joint_angles)
         else:
             rospy.logerr("No Joint Angles provided for move_to_joint_positions. Staying put.")
+
+
     def gripper_open(self):
         self._gripper.open()
         rospy.sleep(1.0)
+
+
     def gripper_close(self):
         self._gripper.close()
         rospy.sleep(1.0)
+
+
     def _approach(self, pose):
         approach = copy.deepcopy(pose)
         # approach with a pose the hover-distance above the requested pose
         approach.position.z = approach.position.z + self._hover_distance
         joint_angles = self.ik_request(approach)
         self._guarded_move_to_joint_position(joint_angles)
+
+
     def _retract(self):
         # retrieve current pose from endpoint
         current_pose = self._limb.endpoint_pose()
@@ -143,10 +157,14 @@ class PickAndPlace(object):
         joint_angles = self.ik_request(ik_pose)
         # servo up from current pose
         self._guarded_move_to_joint_position(joint_angles)
+
+
     def _servo_to_pose(self, pose):
         # servo down to release
         joint_angles = self.ik_request(pose)
         self._guarded_move_to_joint_position(joint_angles)
+
+
     def pick(self, pose):
         # open the gripper
         self.gripper_open()
@@ -158,6 +176,8 @@ class PickAndPlace(object):
         self.gripper_close()
         # retract to clear object
         self._retract()
+
+
     def place(self, pose):
         # servo above pose
         self._approach(pose)
@@ -167,6 +187,7 @@ class PickAndPlace(object):
         self.gripper_open()
         # retract to clear object
         self._retract()
+
 
 def main():
     """RSDK Inverse Kinematics Pick and Place Example
@@ -230,7 +251,7 @@ def main():
         pnp.pick(block_poses[idx])
         print("\nPlacing...")
         idx = (idx+1) % len(block_poses)
-    pnp.place(block_poses[idx])
+        pnp.place(block_poses[idx])
     return 0
 
 if __name__ == '__main__':

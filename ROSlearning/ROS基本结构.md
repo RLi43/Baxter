@@ -169,7 +169,17 @@ add_message_files(
 
 ###### 测试
 
-编译`catkin_make`之后，source到`catkin_ws/devel/setup.bash`,使用`rosmsg show [msg_name]`就能看到消息的类型
+编译`catkin_make`之后，source到`catkin_ws/devel/setup.bash`（否则不认这种消息类型）,使用`rosmsg show [msg_name]`就能看到消息的类型
+
+##### 调用自定义消息
+
+C++的网上资源较多，Python用法如下
+
+```python
+from YOUR_PACKGE_NAME.msg import MSG_NAME
+var = MSG_NAME()
+var.name1 = XXX
+```
 
 #### Service
 
